@@ -1,0 +1,22 @@
+name: "diff-filter"
+description: "Lists directories within given path root path that has changes/updates"
+inputs:
+  base-dir:
+    description: "Base directory to check for changes"
+    required: false
+    default: "/"
+  diff-filter:
+    description: git diff filter
+    required: false
+    default: "ACMRT"
+outputs:
+  dirs:
+    description: "List of directories that contain changes/updates"
+    value: ${{ steps.entry.outputs.dirs }}
+runs:
+    using: "composite"
+    steps:
+      - run: ${{ github.action_path }}/main.sh ${{ github.event.pull_request.base.sha }} ${{ github.sha }} ${{ inputs.base-dir }} ${{ inputs.diff-filter }}
+        id: entry
+        shell: bash
+
