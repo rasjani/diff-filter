@@ -1,5 +1,5 @@
 name: "diff-filter"
-description: "Lists directories within given path root path that has changes/updates"
+description: "Lists directories within given path root path that has changes"
 inputs:
   base-dir:
     description: "Base directory to check for changes"
@@ -14,9 +14,8 @@ outputs:
     description: "List of directories that contain changes/updates"
     value: ${{ steps.entry.outputs.dirs }}
 runs:
-    using: "composite"
-    steps:
-      - run: ${{ github.action_path }}/main.sh ${{ inputs.base-dir }} ${{ inputs.diff-filter }}
-        id: entry
-        shell: bash
-
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/main.sh ${{ inputs.base-dir }} ${{ inputs.diff-filter }}
+      id: entry
+      shell: bash
